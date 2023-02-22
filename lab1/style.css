@@ -1,0 +1,44 @@
+:root {
+    --wrap-margin-right: 60px;
+    --wrap-margin-left: 60px;
+}
+
+.wrapper {
+    margin: 0px var(--wrap-margin-right) 0px var(--wrap-margin-left);
+}
+
+.title {
+    font-size: 24px;
+}
+
+.link {
+    
+}
+
+.header {
+    font-size: 24px;
+    
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    gap:1em;
+}
+
+.list {
+    list-style-type: none;
+}
+
+.main {
+
+}
+
+.footer {
+    
+}
+
+.footer__container {
+    display: flex;
+    justify-content: space-between;
+}
