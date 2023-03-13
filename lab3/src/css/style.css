@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+:root {
+    --wrap-margin-right: 60px;
+    --wrap-margin-left: 60px;
+
+    --form-color: rgb(218, 218, 218);
+    --form-bg-color: rgb(0, 0, 0);
+
+    --section--padding-up:2em;
+    --section--padding-down:2em;
+}
+
+body, html {
+    height: 100%;
+}
+
+.wrapper {
+    margin: 0px var(--wrap-margin-right) 0px var(--wrap-margin-left);
+}
+
+.title {
+    font-size: 24px;
+}
+
+.link {
+    text-decoration: none;
+    
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.header {
+    font-size: 24px;
+    
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    gap:1em;
+}
+
+.list {
+    list-style-type: none;
+}
+
+
+
+.body__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
+}
+
+.main {
+    flex: 1 1 auto;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    max-width: 40%;
+    min-width: 400px;
+    gap: 1.5em;
+
+    padding: 1em;
+}
+
+.form--theme-black {
+    border: .2em solid var(--form-color);
+    border-radius: .5em;
+    background: var(--form-bg-color);
+    color: var(--form-color);
+}
+
+.form__desc {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.form__title {
+    font-size: 32px;
+    margin: 0;
+}
+
+.form__label {
+    
+}
+
+.label {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    
+    gap: .6em;
+}
+
+.form__label-text {
+    width: 100%;
+    font-size: 1.2em;
+}
+
+.form__input {
+    
+}
+
+.input {
+    border: none;
+    border-bottom: 2px solid var(--form-color);
+    width: 100%;
+
+    resize: none;
+}
+
+.input--wd-100 {
+    width: 100%;
+}
+
+.input-set {
+    width: 100%;
+    border: none;
+    padding: 0%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 1em;
+}
+
+.input-set__title {
+    font-size: 1.2em;
+    margin-bottom: 0.6em;
+}
+
+.input-set__label-text {
+
+}
+
+
+
+/* FOOTER */
+.footer {
+    
+}
+
+.footer__container {
+    display: flex;
+    justify-content: space-around;
+}
