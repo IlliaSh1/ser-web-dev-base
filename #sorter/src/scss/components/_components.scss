@@ -1,4 +1,5 @@
 @use "../abstract/colors" as C;
+@use "sass:color";
 
 :root {
     --link-color:#343045;
@@ -201,6 +202,29 @@
         &:active {
             top:4px;
         }
+        &::after {
+            content: none;
+        }
+    }
+
+    &--theme_btn_add_1 {
+        position: relative;
+        display: block;
+        background-color: C.get-color(add-dark-bg);
+        color: C.get-color(bg);
+        padding: .3em .9em;
+        border-radius: .3em;
+
+        &.active {
+            background-color: lighten(C.get-color(accent-dark-bg), 10%);
+            color: color.change(darken(lighten(C.get-color(accent-dark-txt), 80%), 20%), $blackness: 15%);
+        }
+
+        &:hover {
+            background-color: lighten(C.get-color(accent-dark-bg), 10%);
+            color: color.change(darken(lighten(C.get-color(accent-dark-txt), 80%), 20%), $blackness: 15%);
+        }
+
         &::after {
             content: none;
         }

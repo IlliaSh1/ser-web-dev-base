@@ -5,14 +5,44 @@
   $mysqli = connect();
 ?>
 
-<?php 
-  $sql_get_smss = "SELECT * FROM smss WHERE flag_save=0 OR (flag_save=1 AND user_id ='".htmlspecialchars($_SESSION['user_id'])."')";
-  $res_get_smss = mysqli_query($mysqli, $sql_get_smss);
+<?php
 
+
+// GET SMSS
+  $sql_get_smss = "SELECT * FROM smss WHERE flag_save=0 OR (flag_save=1 AND user_id ='".htmlspecialchars($_SESSION['user_id'])."')";
+
+  if(isset($_GET['knowledge_id'])) {
+    $sql_get_smss="SELECT * FROM smss 
+                   JOIN hashtag_knowledges hk ON smss.hashtag_id=hk.hashtag_id AND hk.knowledge_id=".htmlspecialchars($_GET['knowledge_id'])." 
+                   WHERE flag_save=0 OR (flag_save=1 AND user_id ='".htmlspecialchars($_SESSION['user_id'])."')";
+  } else if(isset($_GET['hashtag_id'])) {
+    $sql_get_smss="SELECT * FROM smss 
+                   WHERE (flag_save=0 OR (flag_save=1 AND user_id ='".htmlspecialchars($_SESSION['user_id'])."'))
+                   AND hashtag_id=".htmlspecialchars($_GET['hashtag_id']);
+  
+  }
+
+
+  
+  $res_get_smss = mysqli_query($mysqli, $sql_get_smss);
   $arr_get_smss = [];
   while($arr = mysqli_fetch_assoc($res_get_smss)) 
     $arr_get_smss[] = $arr;
+  // GET PAGES
+  if(!isset($_GET['page']) || $_GET['page']<1) {
+    $_GET['page'] = 1;
+  }
+
   
+  if(!isset($_GET['sms_lim'])) {
+    $_GET['sms_lim'] = 3;
+  }
+  
+  $last_page = ceil(count($arr_get_smss) / $_GET['sms_lim']);
+  if($_GET['page'] > $last_page) {
+    $_GET['page'] = $last_page;
+  }
+  // get functions 
   function getNameById(&$mysqli, $table_name, $id, $col_where, $col_name) {
     $sql_get_by_id = "SELECT ".$col_name." FROM ".$table_name." WHERE ".$col_where."="."'".htmlspecialchars($id)."'";
     $res_get_by_id = mysqli_query($mysqli, $sql_get_by_id);
@@ -25,7 +55,7 @@
     return $res_arr[$col_name];
   }
 
-  function getKnowledges(&$mysqli, $hashtag_id) {
+  function getSmsKnowledges(&$mysqli, $hashtag_id) {
     $sql_get = "SELECT knowledge_id FROM hashtag_knowledges WHERE hashtag_id=".$hashtag_id;
     $res_get = mysqli_query($mysqli, $sql_get);
     $arr_get = [];
@@ -37,6 +67,20 @@
     return $arr_get;
   }
   
+  function getAllTableRows(&$mysqli, $table_name) {
+    $sql_get = "SELECT * FROM ".$table_name;
+    $res_get = mysqli_query($mysqli, $sql_get);
+    $arr_get = [];
+    
+    while ($arr = mysqli_fetch_assoc($res_get)) {
+      $arr_get[] = $arr;
+    } 
+    return $arr_get;
+  }
+
+  $arr_knowledges = getAllTableRows($mysqli, 'knowledges');
+  $arr_hashtags = getAllTableRows($mysqli, 'hashtags');
+
   for($i=0;$i<count($arr_get_smss); $i++) {
     
     
@@ -56,11 +100,7 @@
     $arr_get_smss[$i]['flag_like'] = $channel_liked;
     $arr_get_smss[$i]['user'] = $user;
 
-    
-    
-    
-
-    $knowledges = getKnowledges($mysqli, $hashtag_id);
+    $knowledges = getSmsKnowledges($mysqli, $hashtag_id);
     $arr_get_smss[$i]['knowledges'] = $knowledges;
 
   }
@@ -101,14 +141,125 @@
     echo '</div>';
     echo '</li>';
   }
+
+  function addUrlParameters() {
+    if(isset($_GET['knowledge_id'])) {
+      echo '&knowledge_id='.$_GET['knowledge_id'];
+    } else if(isset($_GET['hashtag_id'])) {
+      echo '&hashtag_id='.$_GET['hashtag_id'];
+    }
+  }  
+
   echo '<section class="section">';
     echo '<div class="section__container wrapper">';
+      echo '<div class="parameters">';
+        echo '<div class="parameters__row">';
+          echo '<div class="parameters__list-name txt--sm">';
+            echo 'Field of knowledge:';
+          echo '</div>';
+          echo '<ul class="parameters__list">';
+            for($i=0;$i<count($arr_knowledges);$i++) {
+              echo '<li class="parameters__list-item txt--sm ';
+              
+              if(isset($_GET['knowledge_id']) && $_GET['knowledge_id'] == $arr_knowledges[$i]['knowledge_id']) {
+                echo ' active ';
+              }
+              echo '">';
+                echo '<a href=index.php?knowledge_id='.$arr_knowledges[$i]['knowledge_id'].' class="link link--hover_off">';
+                  echo $arr_knowledges[$i]['name'];
+                echo '</a>';
+              echo '</li>';
+            }
+          echo '</ul>';
+        echo '</div>';
+        echo '<div class="parameters__row">';
+          echo '<div class="parameters__list-name txt--sm">';
+            echo '#Hashtags:';
+          echo '</div>';
+          echo '<ul class="parameters__list">';
+            for($i=0;$i<count($arr_hashtags);$i++) {
+              echo '<li class="parameters__list-item txt--sm';
+              if(isset($_GET['hashtag_id']) && $_GET['hashtag_id'] == $arr_hashtags[$i]['hashtag_id']) {
+                echo ' active ';
+                echo $_GET['hashtag_id'];
+              }
+              echo '">';
+                echo '<a href=index.php?hashtag_id='.$arr_hashtags[$i]['hashtag_id'].' class="link link--hover_off">';
+                  echo '#'.$arr_hashtags[$i]['name'];
+                echo '</a>';
+              echo '</li>';
+            }
+          echo '</ul>';
+        echo '</div>';
+      echo '</div>';
+
       echo '<ul class="list sms-list">';
-      if(count($arr_get_smss)> 0) {
-        for($i=0;$i<count($arr_get_smss);$i++) {
+      
+
+      if(count($arr_get_smss) > 0) {
+        for($i=($_GET['page'] - 1) * $_GET['sms_lim'];$i<min(count($arr_get_smss), ($_GET['page']) * $_GET['sms_lim']);$i++) {
           printSmsCard($arr_get_smss[$i]);
-          
         }
+
+        
+        echo '<ul class="pagination txt--sm"';
+          if($_GET['page'] != 1) {
+            echo '<li class="pagination__item">';
+              echo '<a href="index.php?page=1';
+              addUrlParameters();
+              echo '" class="link link--theme_btn_add_1">';
+                echo 'First';
+              echo '</a>';
+            echo '</li>';
+            echo '<li class="pagination__item">';
+              echo '<a href="index.php?page='.($_GET['page']-1);
+              addUrlParameters();
+              echo '" class="link link--theme_btn_add_1">';
+                echo 'Prev';
+              echo '</a>';
+            echo '</li>';
+          }
+
+          $pagination_radius = 2;
+          if($_GET['page'] == 1 || $_GET['page'] == $last_page) 
+            $pagination_radius = 4;
+          
+          if($_GET['page'] == 2 || $_GET['page'] == $last_page - 1) 
+            $pagination_radius = 3;
+
+
+          for($i=max($_GET['page'] - $pagination_radius,1); $i <= min($_GET['page'] + $pagination_radius,$last_page);$i++) {
+            echo '<li class="pagination__item">';
+            
+            echo '<a href="index.php?page='.($i);
+            addUrlParameters();
+            echo '" class="link link--theme_btn_add_1 ';
+            if($i == $_GET['page']) 
+              echo 'active';
+            echo '">';
+                echo $i;
+              echo '</a>';
+            echo '</li>';
+          }
+          // Pagination Next, Last
+          if($_GET['page'] < $last_page) {
+            echo '<li class="pagination__item">';
+              echo '<a href="index.php?page='.($_GET['page']+1);
+              addUrlParameters();
+              echo '" class="link link--theme_btn_add_1">';
+                echo 'Next';
+              echo '</a>';
+            echo '</li>';
+            echo '<li class="pagination__item">';
+              echo '<a href="index.php?page='.$last_page;
+              addUrlParameters();
+              echo '" class="link link--theme_btn_add_1">';
+                echo 'Last';
+              echo '</a>';
+            echo '</li>';
+          }
+        echo '</ul>';
+      
       } else {
         echo 'No messages';
       }

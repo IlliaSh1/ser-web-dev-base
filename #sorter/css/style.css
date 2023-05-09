@@ -373,6 +373,25 @@ h1, h2, h3, h4, h5, h6 {
 .link--theme_btn2::after {
   content: none;
 }
+.link--theme_btn_add_1 {
+  position: relative;
+  display: block;
+  background-color: #0074D9;
+  color: white;
+  padding: 0.3em 0.9em;
+  border-radius: 0.3em;
+}
+.link--theme_btn_add_1.active {
+  background-color: #0b4851;
+  color: #bcd999;
+}
+.link--theme_btn_add_1:hover {
+  background-color: #0b4851;
+  color: #bcd999;
+}
+.link--theme_btn_add_1::after {
+  content: none;
+}
 
 .label {
   display: block;
@@ -830,6 +849,45 @@ h1, h2, h3, h4, h5, h6 {
 }
 .sms-card__hidden {
   color: #ff2a2a;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3%;
+  row-gap: 1em;
+}
+.parameters {
+  width: 100%;
+}
+.parameters__row {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  gap: 2%;
+  row-gap: 5%;
+  margin-bottom: 0.5em;
+}
+.parameters__list-name {
+  justify-self: end;
+  width: -moz-min-content;
+  width: min-content;
+}
+.parameters__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2%;
+}
+.parameters__list-item {
+  padding: 0.1em 0.3em;
+}
+.parameters__list-item.active {
+  background-color: #0b4851;
+  color: #bcd999;
+}
+.parameters__list-item:hover {
+  background-color: #0b4851;
+  color: #bcd999;
 }
 
 .body_hidden_scroll {

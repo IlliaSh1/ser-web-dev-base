@@ -130,6 +130,56 @@
     }
 }
 
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3%;
+    row-gap: 1em;
+
+    &__item {
+        
+    }
+}
+
+.parameters {
+    width: 100%;
+
+    &__row {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        gap:2%;
+        row-gap: 5%;
+        margin-bottom: .5em;
+    }
+
+    &__list-name {
+        justify-self: end;
+        width: min-content;
+        
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2%;
+    }
+
+    &__list-item {
+        padding: .1em .3em;
+        &.active {
+            background-color: lighten(C.get-color(accent-dark-bg), 10%);
+            color: color.change(darken(lighten(C.get-color(accent-dark-txt), 80%), 20%), $blackness: 15%);
+        }
+
+        &:hover {
+            background-color: lighten(C.get-color(accent-dark-bg), 10%);
+            color: color.change(darken(lighten(C.get-color(accent-dark-txt), 80%), 20%), $blackness: 15%);
+        }
+    }
+}
+
+
 
 
 // TEMPLATE FOR MEDIAS

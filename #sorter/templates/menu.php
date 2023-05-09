@@ -41,7 +41,6 @@ function println($str="") {
             <?php
             if(!isset($_SESSION['user_id'])) {
               echo '<li class="header__menu-item"><a href="login.php" class="link">Login</a></li>';
-              echo '<li class="header__menu-item"><a href="login.php" class="link">Sign Up</a></li>';
             }
             else {
               echo '<li class="header__menu-item"><a href="profile.php" class="link">'.$_SESSION['user_name'].'</a></li>';

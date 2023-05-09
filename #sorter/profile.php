@@ -11,7 +11,7 @@
     $_SESSION['user_id'] = null;
     $_SESSION['user_name'] = null;
     $_SESSION['user_email'] = null;
-    
+    echo "<p class='txt--md'>You successfully logged out".$_SESSION['user_name']."!</p>";
   } else {
     if(isset($_SESSION['user_id'])) {
         echo "<p class='txt--md'> Welcome ".$_SESSION['user_name']."!</p>";
@@ -19,6 +19,8 @@
         echo '<input class="hidden" name="logout" value="true" hidden>';
         echo '<button class="btn btn--theme_add_dark">Log Out</button>';
         echo '</form>';
+    } else {
+        echo "<p class='txt--md'>You need to login first"."!</p>";
     }
   }
   echo '</div></section>';
