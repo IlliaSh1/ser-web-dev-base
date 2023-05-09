@@ -1,0 +1,111 @@
+@use "../abstract/vars" as VARS;
+@use "sass:list";
+@use "sass:map";
+
+
+
+$txt_sizes: .75rem, 1rem, 1.5rem, 2.25rem, 4rem, 4rem;
+$txt_ks: (
+    txt_xs_k: (1, 1, 1, 1, 1, 1),
+    txt_sm_k: (1, 1, .875, .875, 1, 1),
+    txt_md_k: (1, 1, 1, .8, .85, 1),
+    txt_lg_k: (.7, .8, .8, 1, 1, 1),
+    txt_xl_k: (1, 1, 1, 1, 1, 1),
+    txt_xxl_k: (1, 1, 1, 1, 1, 1),
+);
+$txt_inc_ks: .75, 1.2, 1.6, 2.6, 4, 4;
+
+@mixin responsiveFont($min_sz, $max_sz, $min_screen_w, $max_screen_w) {
+    $add_sz: $max_sz - $min_sz;
+    font-size: calc(#{$minsz + rem} + #{$add_sz} * (100vw - #{$min_screen_w + rem}) / ($max_screen_w - $min_screen_w) );
+}
+
+.txt {
+    // &--xs {
+    //     font-size: .75rem; //12
+    // }
+    // &--sm {
+    //     font-size: 1rem; //16
+    // }
+
+    // &--md {
+    //     font-size: 1.5rem; //24
+    // }
+
+    // &--lg {
+    //     font-size: 2.25rem; //36
+    // }
+
+    // &--xl {
+    //     font-size: 4rem; //64
+    // }
+
+    // &--xxl {
+    //     font-size: 4rem; //64
+    // }
+
+    &--bold {
+        font-weight: 700;
+    }
+
+    &--bolder {
+        font-weight: 600;
+    }
+
+    
+    &--light {
+        font-weight: 200;
+    }
+    
+    &--lighter {
+        font-weight: 300;
+    }
+    &--upper {
+        text-transform: uppercase;
+    }
+
+    &--center {
+        text-align: center;
+    }
+}
+
+@for $j from 1 to 7 {
+    $cur_sz_name: list.nth(VARS.$SIZE_NAMES, $j);
+    .txt--#{$cur_sz_name} {
+        $cur_init_sz: list.nth($txt_sizes, $j);
+        $cur_k: list.nth( map.get($txt_ks, txt_#{$cur_sz_name}_k) , 1);
+        
+        font-size: $cur_init_sz * $cur_k;
+    }
+}
+
+// > 576px ... > 1200px
+
+@for $i from 2 to 6 {
+    @media screen and (min-width: list.nth(VARS.$SCREEN_SIZES, $i)) {   
+        @for $j from 1 to 7 {
+            $cur_sz_name: list.nth(VARS.$SIZE_NAMES, $j);
+            .txt--#{$cur_sz_name} {
+                $cur_init_sz: list.nth($txt_sizes, $j);
+                $cur_k: list.nth( map.get($txt_ks, txt_#{$cur_sz_name}_k) , $i);
+                
+                font-size: calc($cur_init_sz * $cur_k );
+            }
+        }
+    }
+}
+
+// > 1440px
+// @media screen and (min-width: list.nth(VARS.$SCREEN_SIZES, 6)) {   
+//     @for $j from 1 to 7 {
+//         $cur_sz_name: list.nth(VARS.$SIZE_NAMES, $j);
+//         .txt--#{$cur_sz_name} {
+//             $cur_init_sz: list.nth($txt_sizes, $j);
+//             $cur_k: list.nth( map.get($txt_ks, txt_#{$cur_sz_name}_k) , 6);
+//             $cur_inc_k: list.nth($txt_inc_ks, $j);
+
+//             font-size: calc(calc($cur_init_sz * $cur_k) - .9rem * $cur_inc_k + calc(1vw * $cur_inc_k));
+//             // @include responsiveFont(calc($cur_init_sz * $cur_k), calc($cur_init_sz * $cur_k * 2560 / 1440), , )
+//         }
+//     }
+// }

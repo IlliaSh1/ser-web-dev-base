@@ -1,0 +1,33 @@
+@use "sass:map";
+
+$map-colors: (
+    bg: white,
+    
+    accent-light-bg: #AAC789,
+    accent-dark-bg: #052024,
+    
+    accent-light-txt: #AAC789,
+    accent-dark-txt: #467f00,
+
+    add-light-bg: #39CCCC,
+    add-dark-bg: #0074D9,
+
+    add-light-txt: #39CCCC,
+    add-dark-txt: #0074D9,
+
+    invalid-txt: #ff2a2a,
+    focus-outline: orange,
+
+    text: black,
+    light-text: white,
+);
+
+
+@function get-color($color-key) {
+    @return map.get($map-colors, $color-key);
+    
+}
+
+@mixin gradient($color1, $color2, $deg) {
+    background: linear-gradient( $deg + deg, $color1 0%, $color2 100%);
+}

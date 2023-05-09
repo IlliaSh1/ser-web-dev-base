@@ -1,0 +1,69 @@
+@use "../abstract/colors" as C;
+
+.relative {
+    position: relative;
+}
+
+
+.wauto {
+    width: auto;
+}
+
+@for $i from 1 to 101 {
+    // example w100pct
+    .w#{$i}pct {
+        width: $i*1%;
+    }
+}
+
+@for $i from 1 to 11 {
+    // example w100pct
+    .mw#{$i}0pct {
+        max-width: $i*10%;
+    }
+}
+
+.hauto {
+    height: auto;
+}
+
+@for $i from 1 to 11 {
+    // example h100pct
+    .h#{$i}0pct {
+        height: $i*10%;
+    }
+
+    @if $i < 10 {
+        .h0#{$i}em {
+            height: $i * .1em;
+        }
+    } @else {
+        .h1em {
+            height: 1em;
+        }
+    }
+}
+
+
+@for $i from 0 to 101 {
+    .mr#{$i}pct {
+        margin-right: $i*1%;
+    }
+}
+
+// 
+.as-end {
+    align-self: end;
+}
+
+.js-end {
+    justify-self: end;
+}
+
+.m0 {
+    margin: 0;
+}
+
+.cl-invalid {
+    color: C.get-color(invalid-txt);
+}

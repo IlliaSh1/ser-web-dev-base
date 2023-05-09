@@ -1,0 +1,33 @@
+@use "../abstract/colors" as C;
+:root {
+    --link-color:#343045;
+    --light-gradient-color: #C0B7E8;
+    --dark-gradient-color: #8176AF;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    &--horiz {
+        flex-direction: row;
+    }
+}
+
+
+.input-group {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr;
+    gap:5%;
+    
+}
+
+@media screen and (min-width:768px) {
+    .input-group {
+        gap: 2%;
+        row-gap: 10%;
+        grid-template-columns: 1fr 1fr;    
+        grid-auto-rows: 1fr;
+    }    
+}

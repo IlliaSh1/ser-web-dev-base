@@ -1,0 +1,28 @@
+@use "sass:list";
+@use '../abstract/colors' as C;
+
+.body_hidden_scroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.skip-link {
+    z-index: -100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background-color: C.get-color(accent-light-bg);
+    color: C.get-color(text);
+    transform: translateY(-100%);
+    // transform: translateX(-100vw);
+
+
+
+    &:focus-visible {
+        margin: 0;
+        z-index: 100;
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

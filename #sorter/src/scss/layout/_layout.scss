@@ -1,0 +1,154 @@
+@use "../abstract/colors" as C;
+@use "sass:color";
+
+// MAIN
+
+%section__container {
+    max-width: 1440px;
+    width: 100%;
+    // margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 5vmax;
+}
+// SECTION 1 
+.section {
+    // padding: 0;
+    &__container {
+        @extend %section__container;
+        align-items: center;
+    }
+}
+
+.form {
+    width: 100%;
+    &--theme_dark {
+        background-color: C.get-color(accent-dark-bg);
+        color: C.get-color(accent-light-txt);
+        border-radius: 3em;
+        padding: 2em 1em;
+
+        max-width: 875px;
+    }
+}
+
+
+.sms-list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    gap: 5vh;
+}
+
+.sms-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &__header {
+        font-size: .9em;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        padding: 15px;
+        border-radius: 30px 30px 0px 0px;
+        background-color: lighten(C.get-color(accent-dark-bg), 10%);
+        color: lighten(C.get-color(accent-dark-txt), 15%);
+        border-bottom: 2px dashed white;
+    }
+
+    &__body {
+        padding: 15px;
+        border-radius: 0px 0px 30px 30px;
+        background-color: lighten(C.get-color(accent-dark-bg), 10%);
+        color: color.change(darken(lighten(C.get-color(accent-dark-txt), 80%), 20%), $blackness: 15%);
+        
+        
+    }
+
+    &__channel-tags {
+
+    }
+
+    &__tags {
+        display: flex;
+        flex-wrap: wrap;
+        max-height: 2.5em;
+        text-overflow: ellipsis;
+    }
+    
+    &__tag {
+        display: block;
+        margin: .5em 0;
+    }
+
+    &__knowledges {
+        display: flex;
+        flex-wrap: wrap;
+        max-height: 2.5em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        
+    }
+
+    &__knowledge {
+        margin-right: 1em;
+        min-width: 0;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    &__head-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+
+    }
+
+    &__user {
+        flex: 1;
+  
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__date {
+        justify-self: end;
+    }
+
+    &__desc {
+        width: 100%;
+    }
+
+    &__hidden {
+        color: C.get-color(invalid-txt);
+    }
+}
+
+
+
+// TEMPLATE FOR MEDIAS
+@media screen and (min-width:576px) {
+    .someblock {}
+}
+
+@media screen and (min-width:768px) {
+    .someblock {}
+}
+
+@media screen and (min-width:992px) {
+    .someblock {}
+}
+
+@media screen and (min-width:1200px) {
+    .someblock {}
+}
+
+@media screen and (min-width:1400px) {
+    .someblock {}
+}

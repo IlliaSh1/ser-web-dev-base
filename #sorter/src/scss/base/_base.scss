@@ -1,0 +1,102 @@
+@use "sass:list";
+@use '../abstract/colors' as C;
+
+@font-face {
+    font-family: 'Rubik', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
+}
+
+:root {
+    --wrapper-margin-side: 5%;
+    --section-padding-vert: calc(25px + (45 - 20) * ((100vw - 320px)/(1440 - 320)));
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* assist classes*/
+
+.wrapper {
+    margin: 0px var(--wrapper-margin-side);
+}
+/* assist classes */
+
+// CHOOSE BASE FONT
+body {
+    margin: 0;
+    /* INSERT FONT-FAMILY */
+    font-family: 'Rubik', sans-serif;
+    /* INSERT FONT-FAMILY */
+    background-color: C.get-color("bg");
+    color: C.get-color("text");
+}
+
+
+/* Pin Footer To Bottom */
+
+body, html {
+    height: 100%;
+}
+
+.body__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
+}
+
+.main {
+    flex: 1 1 auto;
+}
+
+/* Pin Footer To Bottom */
+// Other
+
+picture > img {
+    width: 100%;
+}
+
+img, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    line-height: 1.5;
+}
+
+p {
+    line-height: 1.5;
+}
+
+section {
+    padding: var(--section-padding-vert) 0;
+}
+
+section, .header, .footer {
+    display: flex;
+    justify-content: center;
+}
+
+.header__container, .footer__container {
+    padding: var(--section-padding-vert) 0;
+    max-width: 1440px;
+    width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+/*  */
+//

@@ -1,0 +1,123 @@
+@use "../abstract/colors" as C;
+
+
+// HEADER
+.header {
+
+    position: relative;
+    &--theme_accentdark {
+        background-color: C.get-color(bg);
+        color: C.get-color(accent-dark-txt);
+    }
+    
+    &__container {
+        display: grid;
+        grid-template-columns: 20% 1fr;
+    }
+
+    &__logo {
+
+    }
+
+    &__logo-img {
+
+    }
+
+    &__menu-toggle {
+        justify-self: end;
+        height: 100%;
+    }
+
+    &__toggle-img {
+        height: 60%;
+        color: C.get-color(accent-light-txt);
+    }
+
+    &__menu {
+        z-index: 3;
+        position: absolute;
+        visibility: hidden;
+        
+        width: 100vw;
+        height: calc(100vh - 100%);
+        
+        bottom: calc(100% - 100vh);
+        left: -120vw;
+
+        background-color: C.get-color(accent-dark-bg);
+        color: C.get-color(accent-light-txt);
+
+        transition: all .3s;
+        &.active {
+            visibility: visible;
+            left: 0;
+    
+
+        }
+    }
+    &__menu-container {
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        padding: 5vh 5vw 10vh 5vw;
+    }
+
+    &__menu-list {
+        flex: 1 1 auto;
+
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        row-gap: 5vh;
+
+    }
+
+    &__menu-item {
+        font-size: 1.4em;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        &__menu {
+            visibility: visible;
+            
+            align-self: center;
+            justify-self: end;
+            
+            height: auto;
+            width: auto;
+            
+            position: static;
+            transition: none;
+            
+            color: C.get-color(accent-dark-txt);
+            background-color: transparent;
+
+            
+        }
+
+        &__menu-container {
+            width: 100%;
+            min-height: 0%;
+            height: auto;
+
+            overflow-y:visible;
+            padding: 0;
+        }
+        &__menu-list {
+            justify-content: end;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 1vmax;
+
+        }
+
+        &__menu-item {
+            font-size: 1.3em;
+        }
+
+    }
+}

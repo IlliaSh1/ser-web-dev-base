@@ -1,0 +1,22 @@
+@use "../abstract/colors" as C;
+
+.footer {
+    padding: var(--std-padding-vertical) 0px var(--half-padding-vertical) 0px;
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 1em;
+    }
+}
+
+.footer--theme_dark {
+    background-color: C.get-color(accent-dark-bg);
+    color: C.get-color(accent-light-txt);
+}
+
+
+.footer__logo-img {
+    animation: rotate 4s linear infinite;
+}
