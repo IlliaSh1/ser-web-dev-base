@@ -13,7 +13,7 @@ $txt_ks: (
     txt_xl_k: (1, 1, 1, 1, 1, 1),
     txt_xxl_k: (1, 1, 1, 1, 1, 1),
 );
-$txt_inc_ks: .75, 1.2, 1.6, 2.6, 4, 4;
+// $txt_inc_ks: .75, 1.2, 1.6, 2.6, 4, 4;
 
 @mixin responsiveFont($min_sz, $max_sz, $min_screen_w, $max_screen_w) {
     $add_sz: $max_sz - $min_sz;

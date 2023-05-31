@@ -3,6 +3,8 @@ include("templates/menu.php");
 
 require('db.php');
 $mysqli = connect();
+$ab = 'фыва';
+echo strlen($ab);
 ?>
 
 <?php
@@ -89,7 +91,7 @@ if(!isset($_SESSION['user_id'])) {
 
         $arr_hashtags = selectAllCol('hashtags', $mysqli, 'name');
         $arr_channels = selectAllCol('channels', $mysqli, 'name');
-
+        
         // Form START
         echo '
         <section class="section">
